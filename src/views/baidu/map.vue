@@ -476,4 +476,15 @@ export default {
     no-repeat !important;
   background-size: 100%;
 }
+// 解决弹框样式
+.BMap_pop div{
+  background:rgb(57, 57, 77) !important;
+  .BMap_bubble_content p{
+    padding: 4px 0;
+    color:white;
+  }
+}
+.BMap_pop div:nth-child(8){
+  opacity: 0;
+}
 </style>
