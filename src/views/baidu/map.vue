@@ -1,6 +1,6 @@
 <template>
-  <!-- 地图 -->
-  <baidu-map class="bm-view" center="河北" @ready="handler">
+  <!-- 地图 :scroll-wheel-zoom="true"（鼠标滚轮滑动缩放）-->
+  <baidu-map class="bm-view" v-if="off" center="全国" @ready="handler" :scroll-wheel-zoom="true">
     <div class="searchBox">
       <input type="text" v-model="keyword" placeholder="请输入仓库名搜索">
       <button @click="seach()">搜索</button>
@@ -70,6 +70,7 @@ export default {
   //   },
   data() {
     return {
+      off:true,
       show: false,
       markers: [
         {
@@ -158,6 +159,7 @@ export default {
   },
   methods: {
     handler({BMap, map }) {
+     var  _that=this
       // 地图样式
       map.setMapStyle({
         styleJson: [
@@ -326,6 +328,19 @@ export default {
       this.center.lng = 0;
       this.center.lat = 0;
       this.zoom = 3;
+      //解决向上拉去时出现的空白问题
+      var extent=new Object();
+      extent.maxY="85"; 
+      map.addEventListener("dragging",function(type, target){
+                  if(!(extent.maxY>this.getBounds().getNorthEast().lat)){
+                  setTimeout(()=>{
+                  setTimeout(()=>{
+                     _that.off=true
+                  })
+                  _that.off=false
+                },100)
+                }
+            })
     },
     //根据经纬度获取城市
     getLocations(val) {
@@ -353,7 +368,14 @@ export default {
     },
 
     seach() {
-      alert(this.keyword)
+      setTimeout(()=>{
+                  setTimeout(()=>{
+                     this.off=true
+                  })
+                  this.off=false
+                },100)
+                //可注释
+      // alert(this.keyword)
       // this.$emit("seach", this.keyword);
     }
   },
