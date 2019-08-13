@@ -28,7 +28,12 @@ const arrrout=[
         path:"/model",
         name:'model',
         component:()=>import('../views/model/index.vue')
-    }
+    },
+    {
+        path: '/captcha',
+        name: 'captcha',
+        component: ()=>import('../views/captcha/capTcha.vue')
+    },
 ]
 const router=new Router({
     routes:[
