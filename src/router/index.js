@@ -17,7 +17,19 @@ const arrrout=[
     {
         path: '/map',
         name: 'map',
-        component: ()=>import('../views/baidu/map.vue')
+        component: ()=>import('../views/baidu/runmap.vue'),
+        children:[
+            {
+                path: '/map/xianshi',
+                name: 'xianshi',
+                component: ()=>import('../views/baidu/map.vue'),
+            },
+            {
+                path: '/map/yundong',
+                name: 'yundong',
+                component: ()=>import('../views/baidu/yundong/index.vue')
+            },
+        ]
     },
     {
         path: '/bus',
