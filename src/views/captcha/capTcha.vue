@@ -133,13 +133,13 @@ export default {
             var cutWidth = _this.cutBlock.offsetWidth; // 裁剪区域宽
             var cutHeight = _this.cutBlock.offsetHeight; // 裁剪区域高
             // left
-            _this.resultX = Math.floor(
+            _this.resultX = Math.abs(Math.floor(
               Math.random() * (_this.imgWidth - cutWidth * 2 - 4) + cutWidth
-            );
+            ));
             // top
-            var cutTop = Math.floor(
+            var cutTop = Math.abs(Math.floor(
               Math.random() * (_this.imgHeight - cutHeight * 2) + cutHeight
-            );
+            ));
             // 设置样式
             _this.cutBlock.style.cssText =
               "top:" +
