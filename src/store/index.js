@@ -1,4 +1,4 @@
-import Vue from 'vuex'
+import Vue from 'vue'
 import Vuex from 'vuex'
 import user from './modlue/user'
 import getters from './getters'
