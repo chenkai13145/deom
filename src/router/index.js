@@ -46,6 +46,11 @@ const arrrout=[
         name: 'captcha',
         component: ()=>import('../views/captcha/capTcha.vue')
     },
+    {
+        path: '/vuescroll',
+        name: 'vuescroll',
+        component: ()=>import('../views/vuescroll/vuescroll.vue')
+    },
 ]
 const router=new Router({
     routes:[

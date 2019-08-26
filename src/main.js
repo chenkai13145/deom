@@ -3,6 +3,9 @@ import App from './App.vue'
 import router from './router/index'
 import store from './store/index'
 import ElementUI from 'element-ui'
+//引入vuescroll
+import vuescroll from 'vuescroll/dist/vuescroll-native'
+Vue.use(vuescroll)
 import 'element-ui/lib/theme-chalk/index.css'
 //映入echarts
 import echarts from 'echarts'

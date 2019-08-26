@@ -6,7 +6,8 @@
       <router-link to="/map">Map</router-link> |
       <router-link to="/echarts">Echarts</router-link>|
       <router-link to="/model">数据绑定原理</router-link>|
-      <router-link to="/captcha">验证码</router-link>
+      <router-link to="/captcha">验证码</router-link> |
+      <router-link to="/vuescroll">vueScroll</router-link>
     </div>
 </template>
 <script>

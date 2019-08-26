@@ -4766,7 +4766,7 @@ export default {
      drv.search(start, end);
     setTimeout(()=>{
       _that.lushu.start();
-    },300)
+    },1000)
     }
   }
 };
