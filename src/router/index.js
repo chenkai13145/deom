@@ -51,6 +51,11 @@ const arrrout=[
         name: 'vuescroll',
         component: ()=>import('../views/vuescroll/vuescroll.vue')
     },
+    {
+        path: '/pring',
+        name: 'pring',
+        component: ()=>import('../views/Printing/Printing.vue')
+    },
 ]
 const router=new Router({
     routes:[
