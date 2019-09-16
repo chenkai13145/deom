@@ -29,6 +29,11 @@ const arrrout=[
                 name: 'yundong',
                 component: ()=>import('../views/baidu/yundong/index.vue')
             },
+            {
+                path: '/map/nummap',
+                name: 'nummap',
+                component: ()=>import('../views/baidu/yundong/numap.vue')
+            },
         ]
     },
     {
