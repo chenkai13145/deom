@@ -34,6 +34,11 @@ const arrrout=[
                 name: 'nummap',
                 component: ()=>import('../views/baidu/yundong/numap.vue')
             },
+            {
+                path: '/map/yuyin',
+                name: 'yuyin',
+                component: ()=>import('../views/baidu/voice/yuyin.vue')
+            },
         ]
     },
     {
