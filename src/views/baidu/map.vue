@@ -1,8 +1,15 @@
 <template>
   <!-- 地图 :scroll-wheel-zoom="true"（鼠标滚轮滑动缩放）-->
-  <baidu-map class="bm-view" v-if="off" center="全国" @ready="handler" :scroll-wheel-zoom="true">
+  <baidu-map class="bm-view"
+             v-if="off"
+             center="全国"
+             @ready="handler"
+             @load="loadMap"
+             :scroll-wheel-zoom="true">
     <div class="searchBox">
-      <input type="text" v-model="keyword" placeholder="请输入仓库名搜索">
+      <input type="text"
+             v-model="keyword"
+             placeholder="请输入仓库名搜索">
       <button @click="seach()">搜索</button>
     </div>
     <!--地图类型，两种：一种是路线一种是绿的那种 :map-types="['BMAP_NORMAL_MAP', 'BMAP_HYBRID_MAP']"-->
@@ -10,39 +17,37 @@
     <!--地图搜索功能，绑定上面的input，-->
     <!--display: none样式很关键，因为下面默认会有地址提示信息很长，很烦，这样搜索会很舒服，-->
     <!--zoom是搜索结果的视图比例，个人觉得12.8很舒服显示-->
-    <bm-local-search :keyword="getcity" :auto-viewport="true" zoom="12.8" style="display: none"></bm-local-search>
+    <bm-local-search :keyword="getcity"
+                     :auto-viewport="true"
+                     zoom="12.8"
+                     style="display: none"></bm-local-search>
     <!-- 缩略图 -->
     <bm-navigation anchor="BMAP_ANCHOR_TOP_RIGHT"></bm-navigation>
 
-    
-<!-- 标签定位头部信息 -->
-    <bm-label
-      v-for="(marker,key) of markers"
-      :key="key"
-      v-bind:content="marker.inoutwarehouse+'辆'"
-      :offset="{width: -26, height: -45}" 
-      :position="{lng: marker.warehouse_lng, lat: marker.warehouse_lat}"
-    />
+    <!-- 标签定位头部信息 -->
+    <bm-label v-for="(marker,key) of markers"
+              :key="key"
+              v-bind:content="marker.inoutwarehouse+'辆'"
+              :offset="{width: -26, height: -45}"
+              :position="{lng: marker.warehouse_lng, lat: marker.warehouse_lat}" />
     <!-- 聚合点 -->
-    <bml-marker-clusterer :averageCenter="true" :styles="styles">
-      <div v-for="(marker,key) of markers" :key="key">
-          <!-- 定位坐标点 -->
-        <bm-marker 
-          :dragging="true"
-          :icon="{url:marker.url,size: {width: 20, height: 20},opts: {anchor: {width:20,height:20},imageSize: {width:20,height:20},infoWindowAnchor: {width:20,height:20}}}" 
-          :key="key"
-          :position="{lng: marker.warehouse_lng, lat: marker.warehouse_lat}"
-          @click="infoWindowOpen(marker)"
-        >
-    
+    <bml-marker-clusterer :averageCenter="true"
+                          :styles="styles">
+      <div v-for="(marker,key) of markers"
+           :key="key">
+        <!-- 定位坐标点 -->
+        <bm-marker :dragging="true"
+                   :icon="{url:marker.url,size: {width: 20, height: 20},opts: {anchor: {width:20,height:20},imageSize: {width:20,height:20},infoWindowAnchor: {width:20,height:20}}}"
+                   :key="key"
+                   :position="{lng: marker.warehouse_lng, lat: marker.warehouse_lat}"
+                   @click="infoWindowOpen(marker)">
+
           <!-- 信息弹窗 -->
-          <bm-info-window   
-            :position="{lng: marker.warehouse_lng, lat: marker.warehouse_lat}"
-            :show="marker.showFlag"
-            @close="infoWindowClose(marker)"
-            @open="infoWindowOpen(marker)"
-            class="windowinfo"
-          >
+          <bm-info-window :position="{lng: marker.warehouse_lng, lat: marker.warehouse_lat}"
+                          :show="marker.showFlag"
+                          @close="infoWindowClose(marker)"
+                          @open="infoWindowOpen(marker)"
+                          class="windowinfo">
             <p>{{marker.warehouse_name}}</p>
             <p>投资企业:{{marker.org_name}}</p>
             <p>商品车品牌:{{marker.car_brand_name}}</p>
@@ -68,9 +73,9 @@ export default {
   //       required: true
   //     }
   //   },
-  data() {
+  data () {
     return {
-      off:true,
+      off: true,
       show: false,
       markers: [
         {
@@ -95,7 +100,7 @@ export default {
           warehouse_name: "xxx库位0",
           showFlag: false
         },
-         {
+        {
           url: "/image/ic_warehouse_3@2x.png",
           car_brand_name: null,
           factory_city_name: null,
@@ -106,7 +111,7 @@ export default {
           warehouse_name: "xxx库位0",
           showFlag: false
         },
-            {
+        {
           url: "/image/ic_warehouse_3@2x.png",
           car_brand_name: null,
           factory_city_name: null,
@@ -117,7 +122,7 @@ export default {
           warehouse_name: "xxx库位0",
           showFlag: false
         },
-            {
+        {
           url: "/image/ic_warehouse_3@2x.png",
           car_brand_name: null,
           factory_city_name: null,
@@ -137,7 +142,7 @@ export default {
       styles: [] //聚合点样式
     };
   },
-  mounted() {
+  mounted () {
     // this.getTrafficData()
     //设置聚合点图表样式
     this.styles = [
@@ -146,9 +151,9 @@ export default {
         size: { width: 52, height: 53 }, //图标大小
         opt_anchor: [52, 53],
         textColor: "white",  //字体颜色
-        opt_textSize:20
+        opt_textSize: 20
       },
-        {
+      {
         url: "../image/chuan_06.png", //聚合点图标
         size: { width: 52, height: 53 }, //图标大小
         opt_anchor: [52, 53],
@@ -158,8 +163,8 @@ export default {
     ];
   },
   methods: {
-    handler({BMap, map }) {
-     var  _that=this
+    handler ({ BMap, map }) {
+      var _that = this
       // 地图样式
       map.setMapStyle({
         styleJson: [
@@ -329,21 +334,23 @@ export default {
       this.center.lat = 0;
       this.zoom = 3;
       //解决向上拉去时出现的空白问题
-      var extent=new Object();
-      extent.maxY="85"; 
-      map.addEventListener("dragging",function(type, target){
-                  if(!(extent.maxY>this.getBounds().getNorthEast().lat)){
-                  setTimeout(()=>{
-                  setTimeout(()=>{
-                     _that.off=true
-                  })
-                  _that.off=false
-                },100)
-                }
+      var extent = new Object();
+      extent.maxY = "85";
+      map.addEventListener("dragging", function (type, target) {
+        if (!(extent.maxY > this.getBounds().getNorthEast().lat)) {
+          setTimeout(() => {
+            setTimeout(() => {
+              _that.off = true
             })
+            _that.off = false
+          }, 100)
+        }
+      })
+      map.getBounds()
+
     },
     //根据经纬度获取城市
-    getLocations(val) {
+    getLocations (val) {
       var _this = this;
       if (val) {
         var point = new BMap.Point(val.warehouse_lng, val.warehouse_lat);
@@ -353,40 +360,45 @@ export default {
         });
       }
     },
-    draw({ el, BMap, map }) {
+    draw ({ el, BMap, map }) {
       const pixel = map.pointToOverlayPixel(new BMap.Point(116.404, 39.915));
       el.style.left = pixel.x - 60 + "px";
       el.style.top = pixel.y - 20 + "px";
     },
     //关闭window信息框
-    infoWindowClose(marker) {
+    infoWindowClose (marker) {
       marker.showFlag = false;
     },
     //打开window信息框
-    infoWindowOpen(marker) {
+    infoWindowOpen (marker) {
       marker.showFlag = true;
     },
 
-    seach() {
-      setTimeout(()=>{
-                  setTimeout(()=>{
-                     this.off=true
-                  })
-                  this.off=false
-                },100)
-                //可注释
+    seach () {
+      setTimeout(() => {
+        setTimeout(() => {
+          this.off = true
+        })
+        this.off = false
+      }, 100)
+      //可注释
       // alert(this.keyword)
       // this.$emit("seach", this.keyword);
+    },
+    //加载完获取可是区域
+    loadMap ({ target }) {
+      console.log('val')
+      console.log(target.getBounds())
     }
   },
   computed: {
-    getcity() {
+    getcity () {
       return this.city;
     }
   },
   watch: {
     markers: {
-      handler(newVal, oldVal) {
+      handler (newVal, oldVal) {
         if (newVal) {
           this.getLocations(newVal[Math.floor(Math.random() * newVal.length)]);
         }
@@ -404,19 +416,19 @@ export default {
   background: #000;
   position: relative;
 }
-.searchBox{
+.searchBox {
   position: absolute;
   right: 20px;
-  top:10px;
-  input{
+  top: 10px;
+  input {
     padding: 10px 8px;
     color: #ccc;
     font-size: 12px;
     border: 1px #ccc solid;
     border: none;
   }
-  button{
-    padding:8px 20px;
+  button {
+    padding: 8px 20px;
     background-color: red;
     color: #fff;
     cursor: pointer;
@@ -434,11 +446,11 @@ export default {
   top: auto !important;
   height: 60px !important;
 }
-.windowinfo{
+.windowinfo {
   width: 150px;
   height: 20px;
   box-sizing: content-box;
-  p{
+  p {
     padding: 4px !important;
     margin: 0;
   }
@@ -464,27 +476,25 @@ export default {
 .BMap_button.BMap_stdMpZoomIn {
   width: 30px !important;
   height: 30px !important;
-  background: url("../../../public/image/jia.png") center center
-    no-repeat !important;
+  background: url("../../../public/image/jia.png") center center no-repeat !important;
   background-size: cover;
 }
 .BMap_button.BMap_stdMpZoomOut {
   width: 30px !important;
   height: 30px !important;
   top: 28px !important;
-  background: url("../../../public/image/jian.png") center center
-    no-repeat !important;
+  background: url("../../../public/image/jian.png") center center no-repeat !important;
   background-size: 100%;
 }
 // 解决弹框样式
-.BMap_pop div{
-  background:rgb(57, 57, 77) !important;
-  .BMap_bubble_content p{
+.BMap_pop div {
+  background: rgb(57, 57, 77) !important;
+  .BMap_bubble_content p {
     padding: 4px 0;
-    color:white;
+    color: white;
   }
 }
-.BMap_pop div:nth-child(8){
+.BMap_pop div:nth-child(8) {
   opacity: 0;
 }
 </style>

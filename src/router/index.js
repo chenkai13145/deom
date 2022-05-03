@@ -66,6 +66,16 @@ const arrrout=[
         name: 'pring',
         component: ()=>import('../views/Printing/Printing.vue')
     },
+    {
+      path: '/localStorge',
+      name: 'localStorge',
+      component: ()=>import('../views/localStorge/index.vue')
+  },
+  {
+    path: '/localStorge2',
+    name: 'localStorge2',
+    component: ()=>import('../views/localStorge/index2.vue')
+},
 ]
 const router=new Router({
     routes:[
